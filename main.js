@@ -40,6 +40,14 @@ function drawTable(rows) {
     return rows.map(drawRow).join("\n");
 }
 
+function repeat(string, times) {
+    var result = "";
+    for (var i = 0; i < times; i++) {
+        result += string;
+    }
+    return result;
+}
+
 function TextCell(text) {
     this.text = text.split("\n");
 }
