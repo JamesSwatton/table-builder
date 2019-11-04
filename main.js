@@ -1,3 +1,5 @@
+const MOUNTAINS = require('./mountains.js');
+
 // Computes arrays of minimum column widths and row heights for a grid of cells.
 // The 'rows' variable will hold an array of arrays, with each inner array representing
 // a row of cells.
@@ -26,11 +28,14 @@ function colWidths(rows) {
 }
 
 // This function uses an internal helper function 'drawRow' to draw all rows and then joins
-// them together with newline characters.
+// them together with newline characters. It converts the cell objects in the row to 'blocks',
+// which are arrays of strings representing the content of the cells, split by line.
 function drawTable(rows) {
     var heights = rowHeights(rows);
     var widths = colWidths(rows);
 
+    // 'drawLine' extracts lines that should appear next to each other form an array of blocks
+    // and joins them with a space character to create a one-character gap between the table's columns.
     function drawLine(blocks, lineNo) {
         return blocks.map(block => {
             return block[lineNo];
@@ -120,3 +125,4 @@ function dataTable(data) {
 
 // console.log(drawTable(rows));
 
+console.log(drawTable(dataTable(MOUNTAINS)));
