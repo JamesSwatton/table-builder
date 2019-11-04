@@ -77,4 +77,33 @@ TextCell.prototype.draw = function(width, height) {
     return result;
 };
 
+function UnderlinedCell(inner) {
+    this.inner = inner;
+}
+UnderlinedCell.prototype.minWidth = function() {
+    return this.inner.minWidth();
+};
+UnderlinedCell.prototype.minHeight = function() {
+    return this.inner.minHeight() + 1;
+};
+UnderlinedCell.prototype.draw = function(width, height) {
+    return this.inner.draw(width, height - 1)
+        .concat([repeat("-", width)]);
+};
+
+// var rows = [];
+
+// for (var i = 0; i < 6; i++) {
+//     var row = [];
+//     for (var j = 0; j < 6; j++) {
+//         if ((j + i) % 2 == 0) {
+//             row.push(new TextCell("##"));
+//         } else {
+//             row.push(new TextCell(" "));
+//         }
+//     }
+//     rows.push(row);
+// }
+
+// console.log(drawTable(rows));
 
