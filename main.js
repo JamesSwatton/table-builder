@@ -91,6 +91,19 @@ UnderlinedCell.prototype.draw = function(width, height) {
         .concat([repeat("-", width)]);
 };
 
+function dataTable(data) {
+    var keys = Object.keys(data[0]);
+    var headers = keys.map(name => {
+        return new UnderlinedCell(new TextCell(name));
+    });
+    var body = data.map(row => {
+        return keys.map(name => {
+            return new TextCell(String(row[name]));
+        });
+    });
+    return [headers].concat(body);
+}
+
 // var rows = [];
 
 // for (var i = 0; i < 6; i++) {
