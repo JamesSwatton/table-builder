@@ -96,6 +96,19 @@ UnderlinedCell.prototype.draw = function(width, height) {
         .concat([repeat("-", width)]);
 };
 
+function RTextCell(text) {
+    TextCell.call(this, text);
+}
+RTextCell.prototype = Object.create(TextCell.prototype);
+RTextCell.prototype.draw = function(width, height) {
+    var result = [];
+    for (var i = 0; i < height; i++) {
+        var line = this.text[i] || "";
+        result.push(repeat(" ", width - line.length) + line);
+    }
+    return result;
+};
+
 function dataTable(data) {
     var keys = Object.keys(data[0]);
     var headers = keys.map(name => {
@@ -103,7 +116,12 @@ function dataTable(data) {
     });
     var body = data.map(row => {
         return keys.map(name => {
-            return new TextCell(String(row[name]));
+            var value = row[name];
+            if (typeof value == 'number') {
+                return new RTextCell(String(value));
+            } else {
+                return new TextCell(String(value));
+            }
         });
     });
     return [headers].concat(body);
